@@ -57,5 +57,6 @@ class StringHelper {
                                                                                       // foood app string
 
   static const String splashTi = "The Fastest\n Food Delivery";
-  static const String splashST = "Craving Something Delicious ? Order now and get your Favorites delivered Fast";
+  static const String getS = "Get Started";
+  static const String splashST = "Craving Something Delicious ? Order\n now and get your Favorites \ndelivered Fast";
 }
