@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_application/core/constant/colorsHelper.dart';
 import 'package:food_application/core/constant/dimensionHelper.dart';
@@ -15,19 +16,22 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        border: cText?null:Border.all(color: CupertinoColors.black,width: 2),
-        color: cText?color??ColorsHelper.blackColor:ColorsHelper.transparent,
-        borderRadius: BorderRadius.circular(DimensionHelper.dimens_20.r)
+    return InkWell(
+      onTap: callback,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          border: cText?null:Border.all(color: CupertinoColors.black,width: 2),
+          color: cText?color??ColorsHelper.blackColor:ColorsHelper.transparent,
+          borderRadius: BorderRadius.circular(DimensionHelper.dimens_20.r)
+        ),
+        child: Center(child: Text(text??"",textAlign: TextAlign.center,style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: FontHelper.font_36,
+          color:cText? CupertinoColors.white:CupertinoColors.black
+        ),),),
       ),
-      child: Center(child: Text(text??"",textAlign: TextAlign.center,style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: FontHelper.font_36,
-        color:cText? CupertinoColors.white:CupertinoColors.black
-      ),),),
     );
   }
 }

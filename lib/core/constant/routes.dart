@@ -1,4 +1,5 @@
 
+import 'package:food_application/feture/presentation/screens/nav_screeens/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../feture/presentation/screens/auth_screens/splash.dart';
@@ -35,11 +36,11 @@ final GoRouter appRoutes = GoRouter(routes: [
   //   name: "navPage",
   //   builder: (context, state) => NavigationPageScreen(),
   // ),
-  // GoRoute(
-  //   path: "/aExpance",
-  //   name: "addExpanceScreen",
-  //   builder: (context, state) => AddExpanceScreen(),
-  // ),
+  GoRoute(
+    path: "/home",
+    name: "HomePage",
+    builder: (context, state) => HomeScreen(),
+  ),
   // GoRoute(
   //   path: "/graph",
   //   name: "graphScreen",

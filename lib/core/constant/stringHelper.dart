@@ -58,5 +58,7 @@ class StringHelper {
 
   static const String splashTi = "The Fastest\n Food Delivery";
   static const String getS = "Get Started";
+  static const String orderFF = "Order Your Favorite Food?";
+  static const String searchYFFH = "Search Your Favorite Food Here";
   static const String splashST = "Craving Something Delicious ? Order\n now and get your Favorites \ndelivered Fast";
 }

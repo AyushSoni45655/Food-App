@@ -6,6 +6,7 @@ import 'package:food_application/core/constant/helper_funcction.dart';
 import 'package:food_application/core/constant/stringHelper.dart';
 import 'package:food_application/feture/presentation/widgets/custom_button.dart';
 import 'package:food_application/feture/presentation/widgets/custom_text.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/assetsHelper.dart';
 
@@ -38,6 +39,9 @@ class SplashScreen extends StatelessWidget {
               ),
               SizedBox(height: DimensionHelper.dimens_50.h,),
               CustomButton(
+                callback: () {
+                  context.go("/home");
+                },
                 text: StringHelper.getS,
                 height: DimensionHelper.dimens_70,
                 width: DimensionHelper.dimens_300.h,
