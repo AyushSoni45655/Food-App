@@ -40,7 +40,7 @@ class SplashScreen extends StatelessWidget {
               SizedBox(height: DimensionHelper.dimens_50.h,),
               CustomButton(
                 callback: () {
-                  context.go("/home");
+                  context.go("/login");
                 },
                 text: StringHelper.getS,
                 height: DimensionHelper.dimens_70,

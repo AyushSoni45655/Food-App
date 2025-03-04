@@ -9,6 +9,11 @@ class DimensionHelper{
   static const double dimens_500 = 500.0;
   static const double dimens_2 = 2.0;
   static const double dimens_11 = 11.0;
+  static const double dimens_71 = 71.0;
+  static const double dimens_72 = 71.0;
+  static const double dimens_73 = 73.0;
+  static const double dimens_74 = 74.0;
+  static const double dimens_75 = 75.0;
   static const double dimens_140 = 140.0;
   static const double dimens_190 = 190.0;
   static const double dimens_180 = 180.0;
