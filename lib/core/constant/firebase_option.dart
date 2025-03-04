@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 
 final FirebaseOptions optionss = FirebaseOptions(
-    storageBucket: "eshoppingapp-290f7.firebasestorage.app",
-    apiKey: "AIzaSyCPZCOJC-IxNcLLuM9vpaUTeIYEmmLsAKk",
-    appId: "1:687722218744:android:1c0e131adf1592cc98670d",
-    messagingSenderId: "687722218744",
-    projectId: "eshoppingapp-290f7",
+    storageBucket: "foodapp-749e1.firebasestorage.app",
+    apiKey: "AIzaSyA6CzrgfKRym0vOoh6nhuA0rdMe_un6RdA",
+    appId: "1:1062286764081:android:e29409f34ca386ee0c0d10",
+    messagingSenderId: "1062286764081",
+    projectId: "foodapp-749e1",
  );
