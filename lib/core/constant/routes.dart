@@ -1,4 +1,5 @@
 
+import 'package:food_application/feture/domain/entity/categorydata.dart';
 import 'package:food_application/feture/presentation/navigation_page.dart';
 import 'package:food_application/feture/presentation/screens/details_page_screen/details_screen.dart';
 import 'package:food_application/feture/presentation/screens/nav_screeens/home_screen.dart';
@@ -68,6 +69,9 @@ final GoRouter appRoutes = GoRouter(routes: [
   GoRoute(
     path: "/details",
     name: "dtailsPage",
-    builder: (context, state) => DetailsScreen(),
+    builder: (context, state){
+      final foodItem = state.extra as CategoryData;
+      return DetailsScreen(categoryData: foodItem,);
+    },
   )
  ]);

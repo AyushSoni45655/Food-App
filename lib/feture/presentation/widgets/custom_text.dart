@@ -5,12 +5,14 @@ class CustomText extends StatelessWidget {
   final String ?text;
   final TextAlign ?textAlign;
   final Color ?color;
+  final int ?maxLines;
+  final TextOverflow? overflow;
   final VoidCallback ? callback;
   final AlignmentGeometry ?alignment;
   final double ?fontsize;
   final FontWeight ?fontWeight;
 
-   CustomText({super.key, this.text, this.color, this.alignment, this.fontWeight, this.callback, this.textAlign, this.fontsize});
+   CustomText({super.key, this.text, this.color, this.alignment, this.fontWeight, this.callback, this.textAlign, this.fontsize, this.maxLines = 40, this.overflow});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,8 @@ class CustomText extends StatelessWidget {
           fontWeight: fontWeight??FontWeight.bold
         ),
           textAlign: textAlign??TextAlign.center,
+          maxLines: maxLines,
+          overflow: overflow,
         ),
       ),
     );

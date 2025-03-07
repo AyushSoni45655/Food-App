@@ -4,22 +4,28 @@ import 'package:food_application/core/constant/assetsHelper.dart';
 import 'package:food_application/core/constant/colorsHelper.dart';
 import 'package:food_application/core/constant/dimensionHelper.dart';
 import 'package:food_application/core/constant/fontsHelper.dart';
+import 'package:food_application/core/constant/helper_funcction.dart';
+import 'package:food_application/feture/domain/entity/categorydata.dart';
 import 'package:food_application/feture/presentation/widgets/custom_button.dart';
 import 'package:food_application/feture/presentation/widgets/custom_container_icon.dart';
 import 'package:food_application/feture/presentation/widgets/custom_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:readmore/readmore.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  final CategoryData categoryData;
+  const DetailsScreen({super.key, required this.categoryData});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  int value = 1;
   @override
   Widget build(BuildContext context) {
+    final tPrice = value * int.parse(widget.categoryData.price.toString());
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -39,35 +45,48 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
             SizedBox(height: DimensionHelper.dimens_10.h,),
             Container(
-              margin: EdgeInsets.only(left: 40),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(DimensionHelper.dimens_50)
+              ),
+              margin: EdgeInsets.only(left: 10),
               alignment: Alignment.centerLeft,
-              child: Image.asset(AssetsHelper.pizz1),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(DimensionHelper.dimens_50.r),
+                  child: Image.network(widget.categoryData.image.toString(),fit: BoxFit.cover,width: DimensionHelper.dimens_all,height:AHelperFunction.screenSize(context).height * .27,)),
             ),
+            SizedBox(height: DimensionHelper.dimens_20,),
             CustomText(
-              text: "Cheese Pizza",
+              text: widget.categoryData.name.toString(),
               fontsize: DimensionHelper.dimens_40,
             ),
             SizedBox(height: DimensionHelper.dimens_10.h,),
                 CustomText(
-                  text: "\$${436}.00",
+                  text: "\$${widget.categoryData.price.toString()}.00",
                   fontsize: DimensionHelper.dimens_34,
                   color: ColorsHelper.redColor,
                 ),
             SizedBox(height: DimensionHelper.dimens_20.h,),
-            CustomText(
-              textAlign: TextAlign.justify,
-              fontsize: FontHelper.font_24,
-              color: Colors.grey.shade700,
-              text: "In Flutter, GoRouter is a modern routing library"
-                  " designed to simplify navigation, especially when dealing"
-                  " with complex routes or deep linking. It allows you to define"
-                  " routes declaratively, making the routing logic more readable"
-                  " and manageable, especially in larger applications are the"
-                  " manage by.The context.pop() method allows you to pop the"
-                  " current route from the navigation stack, essentially taking"
-                  " the user back to the previous screen (similar to"
-                  " Navigator.pop(context) in traditional Flutter navigation).",
-            ),
+            // CustomText(
+            //   textAlign: TextAlign.justify,
+            //   fontsize: FontHelper.font_24,
+            //   color: Colors.grey.shade700,
+            //   text: widget.categoryData.description.toString(),
+            // ),
+                ReadMoreText(
+                  textAlign: TextAlign.justify,
+                  widget.categoryData.description.toString(),
+                  trimLines: 11, // सिर्फ 2 लाइन दिखेंगी
+                  colorClickableText: Colors.blue,
+                  trimMode: TrimMode.Line,
+                  style: TextStyle(
+                    fontSize: FontHelper.font_30,  // 🔹 यहाँ Font Size बढ़ाएं
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade700
+                  ),
+                  trimCollapsedText: ' Read More',
+                  trimExpandedText: ' Read Less',
+
+                ),
             SizedBox(height: DimensionHelper.dimens_15.h,),
             CustomText(
               text: "Quantity",
@@ -77,14 +96,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Row(
               children: [
                 CustomContainerIcon(
+                  callback: () {
+                    setState(() {
+                      value = value + 1;;
+                    });
+                    print(value);
+                  },
                   color: ColorsHelper.redColor,
                   iconData: Icons.add,
                   isCircle: false,
                 ),
                 SizedBox(width: DimensionHelper.dimens_20,),
-                CustomText(text: "0",fontsize: FontHelper.font_40,),
+                CustomText(text: value.toString(),fontsize: FontHelper.font_40,),
                 SizedBox(width: DimensionHelper.dimens_20,),
                 CustomContainerIcon(
+                  callback: () {
+                    if(value<=1){
+                      return;
+                    }else{
+                      value = value -1;
+                      setState(() {
+
+                      });
+                    }
+                  },
                   color: ColorsHelper.redColor,
                   iconData: Iconsax.minus,
                   isCircle: false,
@@ -100,7 +135,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         height: DimensionHelper.dimens_60.h,
                         width: 200,
                         color: Colors.black,
-                        text: "\$${436}.00",
+                        text: "\$${tPrice}.00",
                       ),
                     ),
                     SizedBox(width: DimensionHelper.dimens_30.w,),
@@ -110,7 +145,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         height: DimensionHelper.dimens_60.h,
                         width: 200,
                         color: Colors.black,
-                        text: "\$${436}.00",
+                        text: "\$${tPrice}.00",
                       ),
                     )
                   ],

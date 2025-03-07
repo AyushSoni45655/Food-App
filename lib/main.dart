@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_application/feture/presentation/blocs/auth/authentication_bloc.dart';
+import 'package:food_application/feture/presentation/blocs/firedata/firebasedata_bloc.dart';
 import 'package:food_application/feture/presentation/blocs/nav/navigation_bloc.dart';
 import 'package:food_application/feture/presentation/blocs/toggle/password_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -22,6 +24,8 @@ void main() async{
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => GetIt.I<NavigationBloc>(),),
     BlocProvider(create: (context) => GetIt.I<PasswordBloc>(),),
+    BlocProvider(create: (context) => GetIt.I<AuthenticationBloc>(),),
+    BlocProvider(create: (context) => GetIt.I<FirebaseDataBloc>()..add(FirebaseCategoryEvent()),)
   ], child: MyApp()));
 }
 

@@ -9,6 +9,7 @@ import 'package:food_application/core/constant/helper_funcction.dart';
 import 'package:food_application/core/constant/stringHelper.dart';
 import 'package:food_application/core/constant/validation.dart';
 import 'package:food_application/core/utils/utility.dart';
+import 'package:food_application/feture/presentation/blocs/auth/authentication_bloc.dart';
 import 'package:food_application/feture/presentation/blocs/toggle/password_bloc.dart';
 import 'package:food_application/feture/presentation/widgets/custom_button.dart';
 import 'package:food_application/feture/presentation/widgets/custom_text.dart';
@@ -97,108 +98,134 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Form(
                       key: formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CustomText(
-                            alignment: Alignment.center,
-                            text: StringHelper.bSignIn,
-                            fontsize: DimensionHelper.dimens_45.sp,
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_20.h),
-                          CustomText(
-                            alignment: Alignment.centerLeft,
-                            text: StringHelper.eLevel,
-                            fontsize: FontHelper.font_34,
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_10.h),
-                          CustomTextfield(
-                            controller: emailCon,
-                            inputType: TextInputType.emailAddress,
-                            preIcon: Icons.mail,
-                            hintText: "Enter Your Email",
-                            validatore: (value) {
-                              return AValidator.validateEmail(value);
-                            },
-                          ),
+                      child: BlocConsumer<
+                        AuthenticationBloc,
+                        AuthenticationState
+                      >(
+                        listener: (context, state) {
+                          if (state is AuthFailure) {
+                            Utils().toastMessage(state.message.toString());
+                          } else if (state is AuthSuccess) {
+                            context.go("/nav");
+                          }
+                        },
+                        builder: (context, state) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomText(
+                                alignment: Alignment.center,
+                                text: StringHelper.bSignIn,
+                                fontsize: DimensionHelper.dimens_45.sp,
+                              ),
+                              SizedBox(height: DimensionHelper.dimens_20.h),
+                              CustomText(
+                                alignment: Alignment.centerLeft,
+                                text: StringHelper.eLevel,
+                                fontsize: FontHelper.font_34,
+                              ),
+                              SizedBox(height: DimensionHelper.dimens_10.h),
+                              CustomTextfield(
+                                controller: emailCon,
+                                inputType: TextInputType.emailAddress,
+                                preIcon: Icons.mail,
+                                hintText: "Enter Your Email",
+                                validatore: (value) {
+                                  return AValidator.validateEmail(value);
+                                },
+                              ),
 
-                          SizedBox(height: DimensionHelper.dimens_20.h),
-                          CustomText(
-                            alignment: Alignment.centerLeft,
-                            text: StringHelper.pLevel,
-                            fontsize: FontHelper.font_34,
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_10.h),
-                          BlocBuilder<PasswordBloc, PasswordToggleState>(
-                            builder: (context, state) {
-                              return CustomTextfield(
-                                hide: state.obscure,
-                                controller: passCon,
-                                inputType: TextInputType.number,
-                                preIcon: Iconsax.check,
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    context.read<PasswordBloc>().add(PasswordToggleEvent());
-                                  },
-                                  icon: Icon(
-                                    size: DimensionHelper.dimens_40,
-                                     color: Colors.black,
-                                     state.obscure? Iconsax.eye_slash:Iconsax.eye
+                              SizedBox(height: DimensionHelper.dimens_20.h),
+                              CustomText(
+                                alignment: Alignment.centerLeft,
+                                text: StringHelper.pLevel,
+                                fontsize: FontHelper.font_34,
+                              ),
+                              SizedBox(height: DimensionHelper.dimens_10.h),
+                              BlocBuilder<PasswordBloc, PasswordToggleState>(
+                                builder: (context, state) {
+                                  return CustomTextfield(
+                                    hide: state.obscure,
+                                    controller: passCon,
+                                    inputType: TextInputType.number,
+                                    preIcon: Iconsax.check,
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        context.read<PasswordBloc>().add(
+                                          PasswordToggleEvent(),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        size: DimensionHelper.dimens_40,
+                                        color: Colors.black,
+                                        state.obscure
+                                            ? Iconsax.eye_slash
+                                            : Iconsax.eye,
+                                      ),
+                                    ),
+                                    hintText: "Enter Your Password",
+                                    validatore: (value) {
+                                      return AValidator.validatePassword(value);
+                                    },
+                                  );
+                                },
+                              ),
+                              SizedBox(height: DimensionHelper.dimens_20.h),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    StringHelper.fP,
+                                    style: TextStyle(
+                                      fontSize: FontHelper.font_28,
+                                      color: ColorsHelper.nBlue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                                hintText: "Enter Your Password",
-                                validatore: (value) {
-                                  return AValidator.validatePassword(value);
-                                },
-                              );
-                            },
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_20.h),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                StringHelper.fP,
-                                style: TextStyle(
-                                  fontSize: FontHelper.font_28,
-                                  color: ColorsHelper.nBlue,
-                                  fontWeight: FontWeight.bold,
-                                ),
                               ),
-                            ),
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_30.h),
-                          CustomButton(
-                            height: DimensionHelper.dimens_60.h,
-                            width: DimensionHelper.dimens_300.w,
-                            color: ColorsHelper.nBlue,
-                            text: StringHelper.login,
-                            cText: true,
-                            callback: () {
-                              if (formKey.currentState!.validate()) {
-                                Utils().toastMessage("Data Processing");
-                              }
-                            },
-                          ),
-                          SizedBox(height: DimensionHelper.dimens_30.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomText(text: StringHelper.dA),
-                              SizedBox(width: DimensionHelper.dimens_4.w),
-                              CustomText(
+                              SizedBox(height: DimensionHelper.dimens_30.h),
+                              state is AuthLoading
+                                  ? CircularProgressIndicator(
+                                color: Colors.green,
+                              )
+                                  :
+                              CustomButton(
+                                height: DimensionHelper.dimens_60.h,
+                                width: DimensionHelper.dimens_300.w,
                                 color: ColorsHelper.nBlue,
+                                text: StringHelper.login,
+                                cText: true,
                                 callback: () {
-                                  context.go("/signin");
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<AuthenticationBloc>().add(
+                                        loginEvent(
+                                            password: passCon.text.trim(),
+                                            email: emailCon.text.trim()));
+                                  }
                                 },
-                                fontsize: FontHelper.font_30,
-                                text: StringHelper.bSignUp,
+                              ),
+                              SizedBox(height: DimensionHelper.dimens_30.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomText(text: StringHelper.dA),
+                                  SizedBox(width: DimensionHelper.dimens_4.w),
+                                  CustomText(
+                                    color: ColorsHelper.nBlue,
+                                    callback: () {
+                                      context.go("/signin");
+                                    },
+                                    fontsize: FontHelper.font_30,
+                                    text: StringHelper.bSignUp,
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                   ),

@@ -25,12 +25,16 @@ class CustomSingleFood extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: DimensionHelper.dimens_20,),
-          Image.asset(height: DimensionHelper.dimens_170,width: DimensionHelper.dimens_all,image??'',fit: BoxFit.contain,),
+         // SizedBox(height: DimensionHelper.dimens_10,),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(DimensionHelper.dimens_30),
+              child: Image.network(height: DimensionHelper.dimens_170,width: DimensionHelper.dimens_all,image??'',fit: BoxFit.cover,)),
           SizedBox(height: DimensionHelper.dimens_2.h,),
           Padding(
             padding: const EdgeInsets.only(left: DimensionHelper.dimens_20),
             child: CustomText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               text: title,
               fontsize: FontHelper.font_26.sp,
               color: ColorsHelper.nBlue,

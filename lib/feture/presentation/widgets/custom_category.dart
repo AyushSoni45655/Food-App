@@ -30,7 +30,9 @@ class CustomCategory extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(image??'',height: 60,width: 60,),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(DimensionHelper.dimens_40),
+                child: Image.network(image??'',height: 60,width: 60,fit: BoxFit.cover,)),
             SizedBox(width: DimensionHelper.dimens_10.sp,),
             CustomText(
               text: name,
